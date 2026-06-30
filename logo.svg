@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" fill="none">
+  <!-- Containment box: flat geometric square representing bare-metal isolation -->
+  <rect x="4" y="4" width="192" height="192" rx="6" fill="#0f0f0f"/>
+
+  <!-- Corner bracket accents — industrial containment frame -->
+  <path d="M4 44 L4 4 L44 4"   stroke="#ff5a4e" stroke-width="4" stroke-linecap="square"/>
+  <path d="M156 4 L196 4 L196 44" stroke="#ff5a4e" stroke-width="4" stroke-linecap="square"/>
+  <path d="M4 156 L4 196 L44 196"  stroke="#ff5a4e" stroke-width="4" stroke-linecap="square"/>
+  <path d="M156 196 L196 196 L196 156" stroke="#ff5a4e" stroke-width="4" stroke-linecap="square"/>
+
+  <!-- Subtle inner border -->
+  <rect x="14" y="14" width="172" height="172" rx="3" stroke="#262626" stroke-width="1"/>
+
+  <!-- S lettermark — core SmechOS identity, centered -->
+  <text
+    x="100" y="138"
+    font-family="system-ui, -apple-system, sans-serif"
+    font-weight="900"
+    font-size="108"
+    text-anchor="middle"
+    fill="#f5f5f5"
+    letter-spacing="-2">S</text>
+
+  <!-- V superscript — Visor designation, red accent -->
+  <text
+    x="148" y="72"
+    font-family="system-ui, -apple-system, sans-serif"
+    font-weight="800"
+    font-size="32"
+    text-anchor="middle"
+    fill="#ff5a4e">V</text>
+</svg>

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SmechVisor -- Sovereign Bare-Metal Hypervisor OS</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="#home">
+      <img class="brand-logo" src="logo.svg" alt="SmechVisor logo">
+      <span class="brand-name">SmechVisor</span>
+    </a>
+    <nav class="nav" id="nav">
+      <a href="#what">What It Is</a>
+      <a href="#architecture">Architecture</a>
+      <a href="#vision">Vision</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <a class="btn btn-outline header-cta" href="downloads.html">Downloads</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main>
+
+  <section class="hero" id="home">
+    <div class="hero-bg" aria-hidden="true"></div>
+    <div class="hero-content">
+      <h1>A Sovereign Bare-Metal Hypervisor OS</h1>
+      <p class="hero-sub">
+        No QEMU overhead. No libvirt abstraction layer. Direct access to
+        <code>/dev/kvm</code> via cloud-hypervisor, managed by a
+        web-based control plane you actually own.
+      </p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="downloads.html">Download</a>
+        <a class="btn btn-outline" href="#architecture">See the Architecture</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="about" id="what">
+    <h2>What SmechVisor Is</h2>
+    <p>SmechVisor is a stripped-down fork of SmechOS built for one job:
+       running virtual machines on bare metal with zero bloat in the stack.
+       It boots directly into OpenRC, starts the <code>smechvisord</code>
+       control plane daemon, and exposes a web dashboard for managing KVM
+       execution pipelines. No desktop environment. No package manager UI.
+       No unnecessary services in the way.</p>
+  </section>
+
+  <section class="features" id="architecture">
+    <h2>What's Under the Hood</h2>
+    <div class="feature-grid">
+      <article class="feature-card">
+        <div class="feature-icon feature-icon-kvm" aria-hidden="true"></div>
+        <h3>Direct KVM -- No QEMU, No libvirt</h3>
+        <p>SmechVisor interfaces with <code>/dev/kvm</code> using
+           cloud-hypervisor -- a modern Rust VMM that bypasses QEMU's
+           device emulation layer entirely. Fewer moving parts means fewer
+           things to break, patch, and trust.</p>
+      </article>
+      <article class="feature-card">
+        <div class="feature-icon feature-icon-gpu" aria-hidden="true"></div>
+        <h3>vhost-user-gpu Rendering</h3>
+        <p>Hardware-accelerated display for VMs via a decoupled
+           <code>vhost-user-gpu</code> daemon bound to a Unix socket.
+           VirtIO device ID 16 -- the GPU is handled out-of-process,
+           isolated from the VMM itself.</p>
+      </article>
+      <article class="feature-card">
+        <div class="feature-icon feature-icon-dash" aria-hidden="true"></div>
+        <h3>Web Control Plane</h3>
+        <p>A dark industrial dashboard served by <code>smechvisord</code>
+           on port 8080. Node resource overview, VM provisioning, IOMMU
+           telemetry, and PCIe passthrough (VFIO) toggle -- all from a
+           browser, no SSH required for day-to-day management.</p>
+      </article>
+      <article class="feature-card">
+        <div class="feature-icon feature-icon-vfio" aria-hidden="true"></div>
+        <h3>IOMMU-Gated PCIe Passthrough</h3>
+        <p>The VFIO toggle in the control plane checks
+           <code>/sys/kernel/iommu_groups</code>, <code>/proc/cpuinfo</code>
+           (VT-x / AMD-V), and the kernel cmdline before allowing
+           passthrough to be enabled. If IOMMU isn't active, it blocks the
+           toggle and offers to reboot directly into UEFI firmware settings.</p>
+      </article>
+      <article class="feature-card">
+        <div class="feature-icon feature-icon-openrc" aria-hidden="true"></div>
+        <h3>OpenRC Only -- No systemd</h3>
+        <p>SmechVisor runs a minimal OpenRC init stack. The default
+           runlevel starts <code>vhost-user-gpu</code> then
+           <code>smechvisord</code> and nothing else. No journal daemon,
+           no socket activation, no unit file sprawl.</p>
+      </article>
+      <article class="feature-card">
+        <div class="feature-icon feature-icon-musl" aria-hidden="true"></div>
+        <h3>musl + Clang Base</h3>
+        <p>The underlying SmechOS base targets an independent musl + Clang
+           userland -- no glibc dependency chain, no GNU toolchain
+           requirement at runtime. Built from source via SmechDeploy's
+           <code>smechvisor</code> profile.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="vision" id="vision">
+    <div class="vision-block">
+      <h2>Why It Exists</h2>
+      <p>Every major hypervisor platform today sits behind abstraction
+         layers, proprietary management interfaces, or license walls that
+         put the operator one policy change away from losing access to their
+         own hardware. SmechVisor exists to remove that dependency.
+         The control plane is open source, the init system is OpenRC,
+         the VMM is cloud-hypervisor -- every layer is auditable and
+         replaceable.</p>
+    </div>
+    <div class="vision-block">
+      <h2>Built on SmechDeploy</h2>
+      <p>SmechVisor is built by the same pipeline that builds SmechOS --
+         SmechDeploy's <code>smechvisor</code> profile runs the musl
+         bootstrap, compiles the kernel with KVM and VFIO modules,
+         installs the OpenRC skeleton, drops in <code>smechvisord</code>
+         and cloud-hypervisor, and produces a bootable ISO. No pre-built
+         base images, no Dockerfile layer cache, no mystery in the build
+         chain.</p>
+    </div>
+  </section>
+
+  <section class="cta" id="cta">
+    <h2>Early Alpha</h2>
+    <p>SmechVisor is in early alpha. The control plane daemon builds and
+       runs. The dashboard UI is functional. The ISO build pipeline is
+       integrated into SmechDeploy. Real hardware ISO testing is the next
+       milestone.</p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="downloads.html">Go to Downloads</a>
+      <a class="btn btn-outline" href="https://github.com/Smech-Labs/smechvisord" target="_blank" rel="noopener">View Source</a>
+    </div>
+  </section>
+
+  <section class="community" id="community">
+    <h2>Get Involved</h2>
+    <p>SmechVisor is open source under Smech Labs. Hardware compatibility
+       reports, bug reports, and contributions are tracked in the
+       SmechOS issue tracker.</p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="https://github.com/Smech-Labs/smechos-issues" target="_blank" rel="noopener">Issue Tracker</a>
+      <a class="btn btn-outline" href="https://github.com/Smech-Labs" target="_blank" rel="noopener">GitHub Org</a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer" id="contact">
+  <img class="footer-logo" src="logo.svg" alt="SmechVisor logo">
+  <p class="footer-brand">SmechVisor</p>
+  <p>A <a href="https://labs.smech.xyz" target="_blank" rel="noopener">Smech Labs</a> project</p>
+  <p>Contact: <a href="mailto:smechos@protonmail.com">smechos@protonmail.com</a></p>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>
