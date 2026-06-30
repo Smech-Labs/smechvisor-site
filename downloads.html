@@ -64,23 +64,42 @@
       </div>
     </article>
 
-    <div class="coming-soon-card">
-      <h3>SmechVisor ISO -- coming soon</h3>
-      <p>A bootable SmechVisor ISO -- boots directly into OpenRC +
-         <code>smechvisord</code> on bare metal or QEMU, no installer
-         required. Built via SmechDeploy's <code>smechvisor</code> profile.
-         Real hardware testing is the next milestone before this ships.</p>
-    </div>
+    <article class="download-card">
+      <div class="download-card-header">
+        <h3>SmechVisor Install ISO -- v0.1.0-alpha</h3>
+        <span class="badge badge-alpha">Early Alpha</span>
+      </div>
+      <p>Bootable install media for x86_64 bare metal. Boots into a minimal
+         environment running the SmechVisor TUI installer -- a Newt-based
+         wizard that partitions your disk, extracts all packages from the ISO
+         itself (no internet required), installs GRUB, and reboots into the
+         installed SmechVisor OS. Install-only, no live mode -- same philosophy
+         as Proxmox VE.</p>
+      <dl class="download-meta">
+        <dt>Released</dt>
+        <dd>2026-06-30</dd>
+        <dt>Platform</dt>
+        <dd>x86_64 bare metal</dd>
+        <dt>SHA-256</dt>
+        <dd><code id="iso-sha256">computing...</code></dd>
+        <dt>MD5</dt>
+        <dd><code id="iso-md5">computing...</code></dd>
+      </dl>
+      <div class="download-actions">
+        <a class="btn btn-primary" href="https://github.com/Smech-Labs/smechvisord/releases/tag/v0.1.0-alpha" target="_blank" rel="noopener">Release Page</a>
+        <a class="btn btn-outline" href="https://github.com/Smech-Labs/SmechDeploy" target="_blank" rel="noopener">Build from Source</a>
+      </div>
+    </article>
 
   </section>
 
   <section class="about" id="verify">
     <h2>Verifying Your Download</h2>
-    <p>After downloading the binary, compare its checksum against the
-       value listed above:</p>
-    <pre class="verify-cmd">sha256sum smechvisord</pre>
-    <p>If the output doesn't match exactly, re-download -- do not run a
-       binary whose checksum doesn't match.</p>
+    <p>Always verify checksums before writing to a disk or running on bare metal:</p>
+    <pre class="verify-cmd">sha256sum smechvisord
+sha256sum smechvisor-install-*.iso</pre>
+    <p>If the output doesn't match exactly, re-download -- do not flash a
+       binary or ISO whose checksum doesn't match.</p>
   </section>
 
   <section class="about" id="quickstart">
