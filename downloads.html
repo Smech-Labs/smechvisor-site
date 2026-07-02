@@ -91,13 +91,42 @@
       </div>
     </article>
 
+    <article class="download-card">
+      <div class="download-card-header">
+        <h3>SmechVisor Deploy Shim ISO -- v0.1.0-alpha</h3>
+        <span class="badge badge-alpha">Early Alpha</span>
+      </div>
+      <p>Minimal bootable ISO (~20MB) for deploying SmechVisor over the network
+         from a running SmechVisor node. Boots into a Newt TUI wizard: select
+         disk → auto-partition (EFI 512MB / swap 2GB / root remainder) → set up
+         Wi-Fi or Ethernet → display a 7-character code → receive the full
+         SmechVisor system over TCP from a donor node running
+         <code>spk-visor deploy-system-img-copy &lt;code&gt;</code> → install
+         GRUB → reboot. No packages bundled -- everything streams from the donor.</p>
+      <dl class="download-meta">
+        <dt>Released</dt>
+        <dd>2026-07-02</dd>
+        <dt>Platform</dt>
+        <dd>x86_64 bare metal</dd>
+        <dt>SHA-256</dt>
+        <dd><code>1d0ac83deafae5f7e331e1b9815ce18b9810bfcd6bb30cfa4b381682e8b8cca7</code></dd>
+        <dt>MD5</dt>
+        <dd><code>88a9f0e59b042c37b226f9611ee9b396</code></dd>
+      </dl>
+      <div class="download-actions">
+        <a class="btn btn-primary" href="https://github.com/Smech-Labs/smechvisord/releases/download/v0.1.0-alpha-deploy-shim/smechvisor-deploy-shim-20260702.iso">Download Shim ISO</a>
+        <a class="btn btn-outline" href="https://github.com/Smech-Labs/smechvisord/releases/tag/v0.1.0-alpha-deploy-shim" target="_blank" rel="noopener">Release Notes</a>
+      </div>
+    </article>
+
   </section>
 
   <section class="about" id="verify">
     <h2>Verifying Your Download</h2>
     <p>Always verify checksums before writing to a disk or running on bare metal:</p>
     <pre class="verify-cmd">sha256sum smechvisord
-sha256sum smechvisor-install-*.iso</pre>
+sha256sum smechvisor-install-*.iso
+sha256sum smechvisor-deploy-shim-*.iso</pre>
     <p>If the output doesn't match exactly, re-download -- do not flash a
        binary or ISO whose checksum doesn't match.</p>
   </section>
