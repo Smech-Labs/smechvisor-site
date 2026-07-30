@@ -234,6 +234,11 @@ main > section {
   color: var(--accent);
   border: 1px solid rgba(255,90,78,0.4);
 }
+.badge-rc {
+  background: rgba(78,200,120,0.12);
+  color: #4ec878;
+  border: 1px solid rgba(78,200,120,0.4);
+}
 
 .download-meta {
   display: grid;
